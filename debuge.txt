@@ -1,0 +1,15 @@
+                         Navbar
+                           │
+          ┌────────────────┼────────────────┐
+          ↓                ↓                ↓
+        Home             About           Languages
+                                           │
+                       ┌───────────────────┼──────────────────┐
+                       ↓                   ↓                  ↓
+                      HTML           JavaScript             React
+                       │                   │                  │
+                  HTML.jsx          JavaScript.jsx       React.jsx
+                       │                   │                  │
+                HTMLSidebar       JS Sidebar           ReactSidebar
+                       │                   │                  │
+                   Topics              Topics              Topics
