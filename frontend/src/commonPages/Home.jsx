@@ -6,7 +6,7 @@ const Home = () => {
         <div className="container mt-5">
 
             {/* Hero Section */}
-            <div className="text-center mb-5">
+            <div className="text-center mb-5 border border-dark rounded-3 shadow-sm p-5">
 
                 <h1 className="display-4 fw-bold">
                     Welcome to Knowledge OS 🚀
@@ -17,7 +17,7 @@ const Home = () => {
                     programming knowledge in one place.
                 </p>
 
-                <p className="text-muted mx-auto" style={{ maxWidth: "800px" }}>
+                <p className="text-muted mx-auto mb-0" style={{ maxWidth: "800px" }}>
                     Knowledge OS is a simple learning platform designed for
                     students and developers. It provides basic learning
                     resources for popular web development technologies and
@@ -28,7 +28,7 @@ const Home = () => {
 
 
             {/* What is Knowledge OS */}
-            <div className="card shadow-sm border-0 mb-5">
+            <div className="card shadow-sm border border-dark rounded-3 mb-5">
 
                 <div className="card-body p-4">
 
@@ -58,13 +58,13 @@ const Home = () => {
 
 
             {/* Technologies Section */}
-            <div className="text-center mb-4">
+            <div className="text-center mb-4 border border-dark rounded-3 shadow-sm p-4">
 
                 <h2 className="fw-bold">
                     💻 Explore Technologies
                 </h2>
 
-                <p className="text-muted">
+                <p className="text-muted mb-0">
                     Choose a technology and start exploring its important
                     concepts and topics.
                 </p>
@@ -77,9 +77,9 @@ const Home = () => {
                 {/* HTML */}
                 <div className="col-md-6 col-lg-3">
 
-                    <div className="card shadow-sm border-0 h-100">
+                    <div className="card shadow-sm border border-dark rounded-3 h-100">
 
-                        <div className="card-body text-center p-4">
+                        <div className="card-body text-center p-4 d-flex flex-column">
 
                             <div className="display-5 mb-3">
                                 🌐
@@ -87,7 +87,7 @@ const Home = () => {
 
                             <h3>HTML</h3>
 
-                            <p className="text-muted">
+                            <p className="text-muted flex-grow-1">
                                 Learn the basic structure of web pages using
                                 HTML. Explore elements, attributes, headings,
                                 paragraphs, links, images, forms and other
@@ -111,9 +111,9 @@ const Home = () => {
                 {/* JavaScript */}
                 <div className="col-md-6 col-lg-3">
 
-                    <div className="card shadow-sm border-0 h-100">
+                    <div className="card shadow-sm border border-dark rounded-3 h-100">
 
-                        <div className="card-body text-center p-4">
+                        <div className="card-body text-center p-4 d-flex flex-column">
 
                             <div className="display-5 mb-3">
                                 ⚡
@@ -121,7 +121,7 @@ const Home = () => {
 
                             <h3>JavaScript</h3>
 
-                            <p className="text-muted">
+                            <p className="text-muted flex-grow-1">
                                 Understand JavaScript fundamentals and learn
                                 how it is used to add logic and interactivity
                                 to web applications. Explore variables,
@@ -145,9 +145,9 @@ const Home = () => {
                 {/* Node.js */}
                 <div className="col-md-6 col-lg-3">
 
-                    <div className="card shadow-sm border-0 h-100">
+                    <div className="card shadow-sm border border-dark rounded-3 h-100">
 
-                        <div className="card-body text-center p-4">
+                        <div className="card-body text-center p-4 d-flex flex-column">
 
                             <div className="display-5 mb-3">
                                 🟢
@@ -155,7 +155,7 @@ const Home = () => {
 
                             <h3>Node.js</h3>
 
-                            <p className="text-muted">
+                            <p className="text-muted flex-grow-1">
                                 Learn how JavaScript can be used on the
                                 server side with Node.js. Explore modules,
                                 Express.js, APIs, middleware and basic
@@ -179,9 +179,9 @@ const Home = () => {
                 {/* React */}
                 <div className="col-md-6 col-lg-3">
 
-                    <div className="card shadow-sm border-0 h-100">
+                    <div className="card shadow-sm border border-dark rounded-3 h-100">
 
-                        <div className="card-body text-center p-4">
+                        <div className="card-body text-center p-4 d-flex flex-column">
 
                             <div className="display-5 mb-3">
                                 ⚛️
@@ -189,7 +189,7 @@ const Home = () => {
 
                             <h3>React.js</h3>
 
-                            <p className="text-muted">
+                            <p className="text-muted flex-grow-1">
                                 Learn React.js for building modern and
                                 interactive user interfaces. Explore
                                 components, props, state, hooks, routing
@@ -213,7 +213,7 @@ const Home = () => {
 
 
             {/* MongoDB */}
-            <div className="card shadow-sm border-0 mt-4 mb-5">
+            <div className="card shadow-sm border border-dark rounded-3 mt-4 mb-5">
 
                 <div className="card-body p-4">
 
@@ -255,7 +255,7 @@ const Home = () => {
 
 
             {/* Notes Section */}
-            <div className="card shadow border-0 mb-5">
+            <div className="card shadow border border-dark rounded-3 mb-5">
 
                 <div className="card-body text-center p-5">
 
@@ -291,9 +291,9 @@ const Home = () => {
 
 
             {/* Footer Message */}
-            <div className="text-center text-muted mb-5">
+            <div className="text-center text-muted border border-dark rounded-3 shadow-sm p-4 mb-5">
 
-                <p>
+                <p className="mb-0">
                     🚀 Learn something new every day and build your
                     programming knowledge.
                 </p>
