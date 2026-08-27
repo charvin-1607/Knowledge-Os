@@ -13,7 +13,7 @@ import LanguageLayout from "../components/LanguageLayout";
 
 
 import HTML from "../components/Languages/HTML/HTML";
-import Introduction from "../components/Languages/HTML/Topics/Introduction";
+import Node from "../components/Languages/NodeJs/Node";
 
 
 
@@ -75,18 +75,15 @@ const router = createBrowserRouter([
 
             },
 
+            {
+                path:"/node",
+                element:(
+                    <ProtectedRoute>
+                        <Node />
+                    </ProtectedRoute>
+                )
+            }
 
-            // Language Routes
-            // {
-            //     element:<LanguageLayout />,
-                    
-            //     children: [
-
-                       
-            //     ]
-            // }
-
-            // here end language route
         ]
     }
 
