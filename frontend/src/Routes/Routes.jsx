@@ -14,6 +14,7 @@ import LanguageLayout from "../components/LanguageLayout";
 
 import HTML from "../components/Languages/HTML/HTML";
 import Node from "../components/Languages/NodeJs/Node";
+import React from "../components/Languages/ReactJs/React";
 
 
 
@@ -80,6 +81,15 @@ const router = createBrowserRouter([
                 element:(
                     <ProtectedRoute>
                         <Node />
+                    </ProtectedRoute>
+                )
+            },
+
+            {
+                path:'/react',
+                element:(
+                    <ProtectedRoute>
+                        <React />
                     </ProtectedRoute>
                 )
             }
