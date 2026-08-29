@@ -15,6 +15,7 @@ import LanguageLayout from "../components/LanguageLayout";
 import HTML from "../components/Languages/HTML/HTML";
 import Node from "../components/Languages/NodeJs/Node";
 import React from "../components/Languages/ReactJs/React";
+import JavaScript from "../components/Languages/JavaScript/JavaScript";
 
 
 
@@ -90,6 +91,15 @@ const router = createBrowserRouter([
                 element:(
                     <ProtectedRoute>
                         <React />
+                    </ProtectedRoute>
+                )
+            },
+
+            {
+                path:'/javascript',
+                element:(
+                    <ProtectedRoute>
+                        <JavaScript />
                     </ProtectedRoute>
                 )
             }
