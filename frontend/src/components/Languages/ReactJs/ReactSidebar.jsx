@@ -70,6 +70,11 @@ const ReactSidebar = ({
         },
 
         {
+           id: "component-lifecycle",
+           name: "Component Lifecycle" 
+        },
+
+        {
             id: "use-state",
             name: "useState Hook"
         },

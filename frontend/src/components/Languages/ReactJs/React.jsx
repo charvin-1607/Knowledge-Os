@@ -10,6 +10,15 @@ import Props from "./Topics/Props";
 import State from "./Topics/State";
 import Events from "./Topics/Events";
 import ConditionalRendering from "./Topics/ConditionalRendering";
+import ListsAndKeys from "./Topics/ListsAndKeys";
+import Forms from "./Topics/Forms";
+import Hooks from "./Topics/Hooks";
+import ComponentLifecycle from "./Topics/ComponentLifecycle";
+import UseEffect from "./Topics/UseEffect";
+import UseContext from "./Topics/UseContext";
+import UseState from "./Topics/UseState";
+import ReactRouter from "./Topics/ReactRouter";
+import APIIntegration from "./Topics/APIIntegration";
 
 
 const React = () => {
@@ -47,6 +56,33 @@ const React = () => {
 
             case "conditional-rendering":
                 return <ConditionalRendering />;
+
+            case "lists-keys":
+                return <ListsAndKeys />;
+
+            case "forms":
+                return <Forms />;
+
+            case "hooks":
+                return <Hooks />;
+
+            case "component-lifecycle":
+                return <ComponentLifecycle />;
+
+            case "use-state":
+                return <UseState />;
+
+            case "use-effect":
+                return <UseEffect />;
+
+            case "use-context":
+                return <UseContext />;
+
+            case "react-router":
+                return <ReactRouter />;
+
+            case "api-integration":
+                return <APIIntegration />;
 
             default:
                 return <Introduction />;
