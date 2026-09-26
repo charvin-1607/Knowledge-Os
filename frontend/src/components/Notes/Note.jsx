@@ -211,202 +211,399 @@ const Notes = () => {
 
 
 
-
   return (
-    <>
-
-      <h1>Notes</h1>
-
-      {/* create note */}
-
-      <div className='create-note-container'>
-
-        <h2>Create Note</h2>
-
-        <input
-          type='text'
-          name='title'
-          placeholder='Title'
-          value={noteData.title}
-          onChange={handleChange}
-        />
-        <br /> <br />
-        <input
-          type='text'
-          name='category'
-          placeholder='Category'
-          value={noteData.category}
-          onChange={handleChange}
-        />
-        <br /> <br />
-
-        <textarea
-          placeholder='Content'
-          name='content'
-          value={noteData.content}
-          onChange={handleChange}
-        ></textarea>
-
-        <br /> <br />
-
-        <button type='submit'
-          onClick={handleCreateNote}
-
-          disabled={createNoteRequest.loading}
-        >
-          {createNoteRequest.loading ? 'Creating Note...' : 'Create Note'}
-
-        </button>
-
+    <div className="container py-5">
+  
+      {/* HEADER */}
+      <div className="text-center mb-5">
+  
+        <h1 className="fw-bold mb-2">
+          📝 My Notes
+        </h1>
+  
+        <p className="text-muted mb-0">
+          Create and manage your personal notes
+        </p>
+  
       </div>
-
-
-      <br /> <br />
-
-      {/* display notes */}
-
-      <div className="display-notes-container mt-4">
-
-        <h2 className="mb-4">My Notes</h2>
-
-        {notes.length !== 0 ? (
-
+  
+  
+      {/* CREATE NOTE */}
+      <div className="card border border-dark shadow-sm rounded-4 mb-5">
+  
+        {/* Header */}
+        <div className="card-header bg-dark text-white border-dark rounded-top-4 py-3 px-4">
+  
+          <h4 className="mb-0 fw-semibold">
+            Create New Note
+          </h4>
+  
+        </div>
+  
+  
+        {/* Body */}
+        <div className="card-body p-4">
+  
           <div className="row g-4">
-
-            {notes.map((note) => (
-
-              <div className="col-12 col-md-6 col-lg-4" key={note._id}>
-
-                <div className="card h-100 rounded-1 shadow-sm">
-
-                  <div className="card-body d-flex flex-column">
-
-                    <h5 className="card-title mb-2">
-                      {note.title}
-                    </h5>
-
-                    <p className="text-secondary small mb-3">
-                      Category: {note.category}
-                    </p>
-
-                    <p className="card-text flex-grow-1">
-                      {note.content}
-                    </p>
-
-                    <div className="d-flex justify-content-end gap-2 mt-3">
-
-                      <button
-                        type="button"
-                        className="btn btn-primary btn-sm"
-                         onClick={() => {
-
-                          setEditModel(true);
-                          setEditNoteData({
-                            title: note.title,
-                            category: note.category,
-                            content: note.content,
-                          });
-                        }}
-                      >
-                        Update
-                      </button>
-
-                      <button
-            
-                        className="btn btn-danger"
-                        onClick={() => handleDeleteNote(note._id)}
-                      >
-
-                        Delete Profile
-
-                      </button>
-
-                    </div>
-
+  
+            {/* Title */}
+            <div className="col-md-6">
+  
+              <label className="form-label fw-semibold">
+                Note Title
+              </label>
+  
+              <input
+                type="text"
+                name="title"
+                className="form-control border border-secondary rounded-3"
+                placeholder="Enter note title"
+                value={noteData.title}
+                onChange={handleChange}
+              />
+  
+            </div>
+  
+  
+            {/* Category */}
+            <div className="col-md-6">
+  
+              <label className="form-label fw-semibold">
+                Category
+              </label>
+  
+              <input
+                type="text"
+                name="category"
+                className="form-control border border-secondary rounded-3"
+                placeholder="Enter category"
+                value={noteData.category}
+                onChange={handleChange}
+              />
+  
+            </div>
+  
+  
+            {/* Content */}
+            <div className="col-12">
+  
+              <label className="form-label fw-semibold">
+                Note Content
+              </label>
+  
+              <textarea
+                name="content"
+                rows="5"
+                className="form-control border border-secondary rounded-3"
+                placeholder="Write your note here..."
+                value={noteData.content}
+                onChange={handleChange}
+              ></textarea>
+  
+            </div>
+  
+  
+            {/* Button */}
+            <div className="col-12">
+  
+              <button
+                type="button"
+                className="btn btn-dark px-4 py-2 rounded-3"
+                onClick={handleCreateNote}
+                disabled={createNoteRequest.loading}
+              >
+  
+                {createNoteRequest.loading
+                  ? "Creating Note..."
+                  : "＋ Create Note"
+                }
+  
+              </button>
+  
+            </div>
+  
+          </div>
+  
+        </div>
+  
+      </div>
+  
+  
+      {/* MY NOTES HEADER */}
+  
+      <div className="d-flex justify-content-between align-items-center mb-4">
+  
+        <div>
+  
+          <h2 className="fw-bold mb-1">
+            My Notes
+          </h2>
+  
+          <p className="text-muted mb-0">
+            All your saved notes
+          </p>
+  
+        </div>
+  
+  
+        <span className="badge text-dark border border-dark rounded-pill px-3 py-2">
+          {notes.length} Notes
+        </span>
+  
+      </div>
+  
+  
+      {/* DISPLAY NOTES */}
+  
+      {notes.length !== 0 ? (
+  
+        <div className="row g-4">
+  
+          {notes.map((note) => (
+  
+            <div
+              className="col-12 col-md-6 col-lg-4"
+              key={note._id}
+            >
+  
+              {/* NOTE CARD */}
+  
+              <div className="card h-100 border border-secondary shadow-sm rounded-4">
+  
+                <div className="card-body p-4 d-flex flex-column">
+  
+  
+                  {/* Note Title */}
+                  <h5 className="fw-bold mb-2">
+                   Title :  {note.title}
+                  </h5>
+  
+  
+                  {/* Category */}
+                  <div className="mb-3">
+  
+                    <span className="badge bg-light text-dark border border-secondary rounded-pill px-3 py-2">
+  
+                     Category : {note.category}
+  
+                    </span>
+  
                   </div>
-
+  
+  
+                  {/* Divider */}
+                  <hr className="my-2" />
+  
+  
+                  {/* Content */}
+                  <p className="text-secondary mt-3 mb-4 flex-grow-1">
+  
+                    {note.content}
+  
+                  </p>
+  
+  
+                  {/* Buttons */}
+                  <div className="d-flex gap-2 pt-3 border-top">
+  
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary btn-sm flex-fill rounded-3"
+                      onClick={() => {
+  
+                        setEditModel(true);
+  
+                        setEditNoteData({
+                          title: note.title,
+                          category: note.category,
+                          content: note.content,
+                        });
+  
+                      }}
+                    >
+                      Update
+                    </button>
+  
+  
+                    <button
+                      type="button"
+                      className="btn btn-outline-danger btn-sm flex-fill rounded-3"
+                      onClick={() => handleDeleteNote(note._id)}
+                    >
+                      Delete
+                    </button>
+  
+                  </div>
+  
                 </div>
-
-                  {
-                    editModel && (
-
-                      <div className="edit-note-modal">
-
-                        <div className="edit-note-content">
-
-                          <h3>Edit Note</h3>
-
+  
+              </div>
+  
+  
+              {/* EDIT MODAL*/}
+  
+              {editModel && (
+  
+                <div
+                  className="modal d-block"
+                  tabIndex="-1"
+                  style={{
+                    backgroundColor: "rgba(0, 0, 0, 0.65)"
+                  }}
+                >
+  
+                  <div className="modal-dialog modal-dialog-centered">
+  
+                    <div className="modal-content border border-dark rounded-4 shadow-lg">
+  
+  
+                      {/* Modal Header */}
+                      <div className="modal-header bg-dark text-white rounded-top-4">
+  
+                        <h5 className="modal-title fw-semibold">
+                          Edit Note
+                        </h5>
+  
+                        <button
+                          type="button"
+                          className="btn-close btn-close-white"
+                          onClick={() => setEditModel(false)}
+                        ></button>
+  
+                      </div>
+  
+  
+                      {/* Modal Body */}
+                      <div className="modal-body p-4">
+  
+                        {/* Title */}
+                        <div className="mb-3">
+  
+                          <label className="form-label fw-semibold">
+                            Note Title
+                          </label>
+  
                           <input
-                            type='text'
-                            name='title'
-                            placeholder='Title'
+                            type="text"
+                            name="title"
+                            className="form-control border border-secondary rounded-3"
+                            placeholder="Title"
                             value={editNoteData.title}
                             onChange={handleEditChange}
                           />
-                          <br /> <br />
+  
+                        </div>
+  
+  
+                        {/* Category */}
+                        <div className="mb-3">
+  
+                          <label className="form-label fw-semibold">
+                            Category
+                          </label>
+  
                           <input
-                            type='text'
-                            name='category'
-                            placeholder='Category'
+                            type="text"
+                            name="category"
+                            className="form-control border border-secondary rounded-3"
+                            placeholder="Category"
                             value={editNoteData.category}
                             onChange={handleEditChange}
                           />
-                          <br /> <br />
-
+  
+                        </div>
+  
+  
+                        {/* Content */}
+                        <div className="mb-3">
+  
+                          <label className="form-label fw-semibold">
+                            Content
+                          </label>
+  
                           <textarea
-                            placeholder='Content'
-                            name='content'
+                            name="content"
+                            rows="5"
+                            className="form-control border border-secondary rounded-3"
+                            placeholder="Content"
                             value={editNoteData.content}
                             onChange={handleEditChange}
                           ></textarea>
-
-                          <br /> <br />
-
-                          <button
-                            type='submit'
-                            onClick={() => {
-                              handleUpdateNote(note._id);
-                              setEditModel(false);
-                            }}
-                          >
-                            Update Note
-                          </button>
-
-                          <button
-                            type="button"
-                            className="btn btn-secondary"
-                            onClick={() => setEditModel(false)}
-                          >
-                            Cancel
-                          </button>
-
+  
                         </div>
-
+  
                       </div>
-                    )
-                  }
-
-              </div>
-
-            ))}
-
+  
+  
+                      {/* Modal Footer */}
+                      <div className="modal-footer border-top">
+  
+                        <button
+                          type="button"
+                          className="btn btn-outline-secondary rounded-3 px-4"
+                          onClick={() => setEditModel(false)}
+                        >
+                          Cancel
+                        </button>
+  
+  
+                        <button
+                          type="button"
+                          className="btn btn-dark rounded-3 px-4"
+                          onClick={() => {
+  
+                            handleUpdateNote(note._id);
+                            setEditModel(false);
+  
+                          }}
+                        >
+                          Update Note
+                        </button>
+  
+                      </div>
+  
+                    </div>
+  
+                  </div>
+  
+                </div>
+  
+              )}
+  
+            </div>
+  
+          ))}
+  
+        </div>
+  
+      ) : (
+  
+        /* EMPTY STATE */
+  
+        <div className="card border border-secondary rounded-4 shadow-sm">
+  
+          <div className="card-body text-center py-5">
+  
+            <div className="fs-1 mb-3">
+              📝
+            </div>
+  
+            <h5 className="fw-bold">
+              No Notes Found
+            </h5>
+  
+            <p className="text-muted mb-0">
+              Create your first note to get started.
+            </p>
+  
           </div>
-
-        ) : (
-
-          <div className="alert alert-secondary">
-            No notes found.
-          </div>
-
-        )}
-
-      </div>
-    </>
-
-
-  )
-
-
+  
+        </div>
+  
+      )}
+  
+    </div>
+  );
 
 }
 

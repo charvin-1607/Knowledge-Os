@@ -77,7 +77,9 @@ const HTMLSidebar = ({ selectedTopic, setSelectedTopic }) => {
                         }`}
                         onClick={() => setSelectedTopic(topic.id)}
                     >
+                        
                         {topic.title}
+
                     </button>
     
                 ))}

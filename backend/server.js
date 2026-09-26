@@ -14,7 +14,7 @@ dotenv.config();
 
 const PORT = 5000 || process.env.PORT;
 
-//Middleware
+//Middlewares
 app.use(cors({
     origin: "http://localhost:5173", // frontend URL
     credentials: true
@@ -26,13 +26,14 @@ app.use(cookieParser());
 
 
 
-//db connection the start server
+//after db connection the start server
+
 const startServer = async () => {
     try {
-        // First → MongoDB Connect
+        // First -> MongoDB Connect
         await connectDB();
 
-        // Second → Server Start
+        // Second -> Server Start
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
