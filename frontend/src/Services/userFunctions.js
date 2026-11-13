@@ -78,8 +78,49 @@ const deleteUserAPI = async (userId) => {
 };
 
 
+
+//Update password API
+
+ const updatePasswordAPI = async (passwordData) => {
+
+    try {
+
+        const response = await fetch(
+            `${BASE_URL}/update-password`,
+            {
+                method: "PUT",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                credentials: "include",
+
+                body: JSON.stringify(passwordData)
+            }
+        );
+
+        const data = await response.json();
+
+        return data;
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: true,
+            message: error.message
+        };
+
+    }
+
+};
+
+
+
 export {
     fetchUserAPI,
     updateUserAPI,
-    deleteUserAPI
+    deleteUserAPI,
+    updatePasswordAPI
 };

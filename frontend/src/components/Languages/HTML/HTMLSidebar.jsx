@@ -62,7 +62,7 @@ const HTMLSidebar = ({ selectedTopic, setSelectedTopic }) => {
                 </h5>
             </div>
     
-            {/* Topics */}
+            {/* Topics */}  
             <div className="list-group list-group-flush">
     
                 {topics.map((topic) => (

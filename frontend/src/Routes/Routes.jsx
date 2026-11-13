@@ -17,6 +17,7 @@ import Node from "../components/Languages/NodeJs/Node";
 import React from "../components/Languages/ReactJs/React";
 import JavaScript from "../components/Languages/JavaScript/JavaScript";
 
+import UpdatePassword from "../components/User/UpdatePassword";
 
 
 const router = createBrowserRouter([
@@ -102,7 +103,16 @@ const router = createBrowserRouter([
                         <JavaScript />
                     </ProtectedRoute>
                 )
-            }
+            },
+
+            {
+                path: "/update-password",
+                element: (
+                  <ProtectedRoute>
+                    <UpdatePassword />
+                  </ProtectedRoute>
+                )
+              },
 
         ]
     }

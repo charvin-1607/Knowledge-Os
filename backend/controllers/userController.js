@@ -1,5 +1,5 @@
 const User = require("../models/User");
-
+const bcrypt = require("bcryptjs");
 
 //get all users
 
@@ -12,9 +12,9 @@ async function getAllUsers(req, res) {
             users: users
         });
     } catch (error) {
-        res.status(500).json({ 
+        res.status(500).json({
             success: false,
-            message: error.message 
+            message: error.message
         });
     }
 }
@@ -39,9 +39,9 @@ async function getUserById(req, res) {
             user: user
         });
     } catch (error) {
-        res.status(500).json({ 
+        res.status(500).json({
             success: false,
-            message: error.message 
+            message: error.message
         });
     }
 }
@@ -59,7 +59,7 @@ async function updateUserById(req, res) {
                 message: "User not found"
             });
         }
-        
+
         res.status(200).json({
             success: true,
             message: "User updated successfully",
@@ -70,7 +70,7 @@ async function updateUserById(req, res) {
 
         res.status(500).json({
             success: false,
-            message: error.message 
+            message: error.message
         });
     }
 
@@ -80,67 +80,131 @@ async function updateUserById(req, res) {
 // delete user by id
 
 async function deleteUserById(req, res) {
-    
-        try {
-            const user = await User.findByIdAndDelete(req.params.id);
-    
-            if (!user) {
-                return res.status(404).json({
-                    success: false,
-                    message: "User not found"
-                });
-            }
-            
-            res.status(200).json({
-                success: true,
-                message: "User deleted successfully",
-                user: user
-            });
-    
-        } catch (error) {
-    
-            res.status(500).json({
+
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({
                 success: false,
-                message: error.message 
+                message: "User not found"
             });
         }
-    
-    }   
+
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully",
+            user: user
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+
+}
 
 
 
 // get me 
 
 async function getMe(req, res) {
-    
-        try {
-            const user = await User.findById(req.user.id);
-    
-            if (!user) {
-                return res.status(404).json({
-                    success: false,
-                    message: "User not found"
-                });
-            }
-    
-            res.status(200).json({
-                success: true,
-                message: "User fetched successfully",
-                user: user
-            });
-    
-        } catch (error) {
-            res.status(500).json({ 
+
+    try {
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({
                 success: false,
-                message: error.message 
+                message: "User not found"
             });
         }
+
+        res.status(200).json({
+            success: true,
+            message: "User fetched successfully",
+            user: user
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
     }
+}
+
+
+// update password 
+
+
+async function updatePassword(req, res) {
+
+    try {
+
+        const { currentPassword, newPassword } = req.body;
+
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
+            });
+        }
+
+        // Compare current password with hashed password
+
+        const isPasswordCorrect = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!isPasswordCorrect) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Current password is incorrect"
+            });
+
+        }
+
+        // Hash new password
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update password
+
+        user.password = hashedPassword;
+        await user.save();
+
+        return res.status(200).json({
+
+            success: true,
+            message: "Password updated successfully"
+
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
+}
 
 module.exports = {
     getAllUsers,
     getUserById,
     updateUserById,
     deleteUserById,
-    getMe
+    getMe,
+    updatePassword
 };

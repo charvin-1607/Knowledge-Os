@@ -39,24 +39,111 @@ async function createNote(req, res) {
 
 // get notes based on user id
 
+
 async function getNotesByUserId(req, res) {
-    
-        try {
-            const userId = req.user.id; //  get from req.user.id [req.user which filled up in middleware], if needed
-            const notes = await Note.find({userId}).populate('userId', 'name email'); // populate user details if needed
 
-            res.status(200).json({
-                success: true,
-                message: "Notes retrieved successfully",
-                notes: notes
-            });
+    try {
 
-        } catch (error) {
-            res.status(500).json({
-                success: false,
-                message: error.message
-            });
+        const userId = req.user.id;
+
+        // Query parameters
+        const {
+            search = "",
+            category = "all",
+            sort = "newest"
+        } = req.query;
+
+
+        // Base filter - only logged-in user's notes
+        const filter = {
+            userId: userId
+        };
+
+
+        // SEARCH
+        if (search.trim() !== "") {
+
+            filter.$or = [
+                {
+                    title: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    content: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                }
+            ];
+
         }
+
+
+        // FILTER BY CATEGORY
+        if (category !== "all") {
+
+            filter.category = category;
+
+        }
+
+
+        // SORT
+        let sortOption = {};
+
+        if (sort === "oldest") {
+
+            sortOption = {
+                createdAt: 1
+            };
+
+        } else if (sort === "title-asc") {
+
+            sortOption = {
+                title: 1
+            };
+
+        } else if (sort === "title-desc") {
+
+            sortOption = {
+                title: -1
+            };
+
+        } else {
+
+            // Default = newest
+            sortOption = {
+                createdAt: -1
+            };
+
+        }
+
+
+        // Get notes
+        const notes = await Note.find(filter)
+            .sort(sortOption)
+            .populate("userId", "name email");
+
+
+        return res.status(200).json({
+
+            success: true,
+            message: "Notes retrieved successfully",
+            notes: notes
+
+        });
+
+    } catch (error) {
+
+        return res.status(500).json({
+
+            success: false,
+            message: error.message
+
+        });
+
+    }
 
 }
 

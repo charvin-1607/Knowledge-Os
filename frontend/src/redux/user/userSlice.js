@@ -34,6 +34,13 @@ const userSlice = createSlice({
             message: "",
         },
 
+        updatePasswordRequest: {
+            loading: false,
+            success: false,
+            error: null,
+            message: ""
+        }
+
     },
 
 
@@ -136,6 +143,36 @@ const userSlice = createSlice({
 
         },
 
+        
+        // UPDATE PASSWORD
+
+        updatePasswordRequestStart: (state) => {
+
+            state.updatePasswordRequest.loading = true;
+            state.updatePasswordRequest.success = false;
+            state.updatePasswordRequest.error = null;
+            state.updatePasswordRequest.message = "";
+
+        },
+
+        updatePasswordRequestSuccess: (state, action) => {
+                
+                state.updatePasswordRequest.loading = false;
+                state.updatePasswordRequest.success = true;
+                state.updatePasswordRequest.error = null;
+                state.updatePasswordRequest.message = action.payload.message;
+    
+            },
+
+        updatePasswordRequestFail: (state, action) => {
+                
+                state.updatePasswordRequest.loading = false;
+                state.updatePasswordRequest.success = false;
+                state.updatePasswordRequest.error = action.payload.error;
+                state.updatePasswordRequest.message = action.payload.message;
+    
+            }
+
     },
 
 });
@@ -156,6 +193,10 @@ export const {
     deleteUserRequestStart,
     deleteUserRequestSuccess,
     deleteUserRequestFail,
+
+    updatePasswordRequestStart,
+    updatePasswordRequestSuccess,
+    updatePasswordRequestFail
 
 } = userSlice.actions;
 

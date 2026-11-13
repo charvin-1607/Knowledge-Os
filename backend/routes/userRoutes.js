@@ -10,6 +10,8 @@ router.get("/",userController.getAllUsers);
 
 router.get("/me",authMiddleware,userController.getMe);
 
+router.put("/update-password", authMiddleware,userController.updatePassword);
+
 router.route("/:id")
     .get(authMiddleware,userController.getUserById)
     .patch(authMiddleware,userController.updateUserById)

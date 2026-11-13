@@ -31,13 +31,23 @@ const createNote = async (userId,title,category,content) => {
 
 
 // get notes by user id
-
-const getNotesByUserId = async () => {
+const getNotesByUserId = async (
+    search = "",
+    category = "all",
+    sort = "newest"
+) => {
 
     try {
 
+        const params = new URLSearchParams();
+
+        params.append("search", search);
+        params.append("category", category);
+        params.append("sort", sort);
+
+
         const response = await fetch(
-            `${BASE_URL}/get-my-all-notes`,
+            `${BASE_URL}/get-my-all-notes?${params.toString()}`,
             {
                 method: "GET",
                 credentials: "include"
@@ -45,15 +55,24 @@ const getNotesByUserId = async () => {
         );
 
         const data = await response.json();
-        console.log("getNotesByUserId API response:", data); // Log the response for debugging
+
+        console.log(
+            "getNotesByUserId API response:",
+            data
+        );
 
         return data;
 
     } catch (error) {
-        return { success: false, message: "Failed to fetch notes" };
-    }
-}
 
+        return {
+            success: false,
+            message: "Failed to fetch notes"
+        };
+
+    }
+
+};
 
 //delete note by id
 

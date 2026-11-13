@@ -17,6 +17,9 @@ import {
   checkAuthRequestSuccess,
   checkAuthRequestFail
 } from '../redux/auth/authSlice'
+
+import GlobalSearch from './GlobalSearch';
+import Theme from './Theme/Theme';
 import LanguageLayout from './LanguageLayout';
 
 
@@ -24,7 +27,7 @@ const Navbar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { loading } = useSelector(
     (state) => state.auth.logoutRequest
@@ -41,22 +44,22 @@ const Navbar = () => {
 
   const checkAuthentication = async () => {
 
-      dispatch(checkAuthRequestStart());
+    dispatch(checkAuthRequestStart());
 
-      try {
+    try {
 
-          const res = await getMeAPI();
+      const res = await getMeAPI();
 
-          if (!res || res.error) {
-              dispatch(checkAuthRequestFail(res.message || "Authentication check failed"));
-              return;
-          }
-
-          dispatch(checkAuthRequestSuccess(res));
-
-      } catch (error) {
-          dispatch(checkAuthRequestFail(error.message || "Something went wrong during authentication check"));
+      if (!res || res.error) {
+        dispatch(checkAuthRequestFail(res.message || "Authentication check failed"));
+        return;
       }
+
+      dispatch(checkAuthRequestSuccess(res));
+
+    } catch (error) {
+      dispatch(checkAuthRequestFail(error.message || "Something went wrong during authentication check"));
+    }
   }
 
   // const isLoading = checkAuthRequest.loading;
@@ -64,7 +67,7 @@ const Navbar = () => {
   const handleLogout = async () => {
 
     if (!window.confirm("Are you sure you want to logout")) return;
-    
+
     try {
 
       dispatch(logoutRequestStart());
@@ -96,182 +99,225 @@ const Navbar = () => {
 
   return (
     <>
-    <nav className="navbar navbar-expand-lg bg-white shadow-sm border-bottom">
+      <nav className="navbar navbar-expand-lg bg-white shadow-sm border-bottom">
 
-      <div className="container">
-
-
-        {/* Logo */}
-
-        <NavLink
-          to="/"
-          className="navbar-brand fw-bold text-primary"
-        >
-          Knowledge OS
-        </NavLink>
+        <div className="container">
 
 
-        {/* Mobile Menu Button */}
+          {/* Logo */}
 
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarContent"
-          aria-controls="navbarContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-
-          <span className="navbar-toggler-icon"></span>
-
-        </button>
+          <NavLink
+            to="/"
+            className="navbar-brand fw-bold text-primary"
+          >
+            Knowledge OS
+          </NavLink>
 
 
-        {/* Navbar Content */}
+          {/* Mobile Menu Button */}
 
-        <div
-          className="collapse navbar-collapse"
-          id="navbarContent"
-        >
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent"
+            aria-controls="navbarContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
 
+            <span className="navbar-toggler-icon"></span>
 
-          {/* Navigation Links */}
-
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-
-
-            {/* Home */}
-
-            <li className="nav-item">
-
-              <NavLink
-                to="/"
-                end
-                className={({ isActive }) =>
-                  `nav-link px-3 ${
-                    isActive
-                      ? "active fw-semibold text-primary"
-                      : ""
-                  }`
-                }
-              >
-                Home
-              </NavLink>
-
-            </li>
+          </button>
 
 
-            {/* About */}
+          {/* Navbar Content */}
 
-            <li className="nav-item">
-
-              <NavLink
-                to="/about"
-                className={({ isActive }) =>
-                  `nav-link px-3 ${
-                    isActive
-                      ? "active fw-semibold text-primary"
-                      : ""
-                  }`
-                }
-              >
-                About
-              </NavLink>
-
-            </li>
+          <div
+            className="collapse navbar-collapse"
+            id="navbarContent"
+          >
 
 
-            {/* Logged In */}
+            {/* Navigation Links */}
 
-            {isAuthenticated && (
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+
+
+              {/* Home */}
 
               <li className="nav-item">
 
                 <NavLink
-                  to="/notes"
+                  to="/"
+                  end
                   className={({ isActive }) =>
-                    `nav-link px-3 ${
-                      isActive
-                        ? "active fw-semibold text-primary"
-                        : ""
+                    `nav-link px-3 ${isActive
+                      ? "active fw-semibold text-primary"
+                      : ""
                     }`
                   }
                 >
-                  Notes
+                  Home
                 </NavLink>
 
               </li>
 
-            )}
 
-          </ul>
+              {/* About */}
 
-
-          {/* Right Side */}
-
-          <div className="d-flex gap-2">
-
-
-            {/* Logged Out */}
-
-            {!isAuthenticated && (
-              <>
+              <li className="nav-item">
 
                 <NavLink
-                  to="/signup"
-                  className="btn btn-outline-primary px-3"
+                  to="/about"
+                  className={({ isActive }) =>
+                    `nav-link px-3 ${isActive
+                      ? "active fw-semibold text-primary"
+                      : ""
+                    }`
+                  }
                 >
-                  Signup
+                  About
                 </NavLink>
 
-
-                <NavLink
-                  to="/login"
-                  className="btn btn-primary px-4"
-                >
-                  Login
-                </NavLink>
-
-              </>
-            )}
+              </li>
 
 
-            {/* Logged In */}
+              {/* Logged In */}
 
-            {isAuthenticated && (
-              <>
+              {isAuthenticated && (
 
-                <NavLink
-                  to="/profile"
-                  className="btn btn-outline-primary px-3"
-                >
-                  Profile
-                </NavLink>
+                <li className="nav-item">
+
+                  <NavLink
+                    to="/notes"
+                    className={({ isActive }) =>
+                      `nav-link px-3 ${isActive
+                        ? "active fw-semibold text-primary"
+                        : ""
+                      }`
+                    }
+                  >
+                    Notes
+                  </NavLink>
+
+                </li>
+
+              )}
+
+            </ul>
+
+            {/* Global Search */}
+            {isAuthenticated && <GlobalSearch />}
 
 
-                <button
-                  type="button"
-                  className="btn btn-danger px-3"
-                  onClick={handleLogout}
-                  disabled={loading}
-                >
-                  {loading ? "Logging out..." : "Logout"}
-                </button>
 
-              </>
-            )}
+            {/* Right Side */}
 
+            <div className="d-flex gap-2">
+
+              {/* <Theme /> */}
+
+
+              {/* Logged Out */}
+
+              {!isAuthenticated && (
+                <>
+
+                  <NavLink
+                    to="/signup"
+                    className="btn btn-outline-primary px-3"
+                  >
+                    Signup
+                  </NavLink>
+
+
+                  <NavLink
+                    to="/login"
+                    className="btn btn-primary px-4"
+                  >
+                    Login
+                  </NavLink>
+
+                </>
+              )}
+
+
+              <h1>                  </h1>
+
+
+
+              {/* Logged In */}
+
+              {isAuthenticated && (
+                <>
+
+
+                  <div className="dropdown">
+
+                    <button
+                      className="btn btn-outline-secondary dropdown-toggle"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                    >
+                      ⚙️ Settings
+                    </button>
+
+                    <ul className="dropdown-menu dropdown-menu-end">
+
+                    <li>
+                        <div className="dropdown-item">
+                          <Theme />
+                        </div>
+                      </li>
+
+                     <br /> 
+
+                      <li>
+                        <NavLink
+                          to="/update-password"
+                          className="dropdown-item"
+                        >
+                          🔒 Update Password
+                        </NavLink>
+                      </li>
+
+                     
+
+                    </ul>
+
+                  </div>
+
+                  <NavLink
+                    to="/profile"
+                    className="btn btn-outline-primary px-3"
+                  >
+                    Profile
+                  </NavLink>
+
+
+                  <button
+                    type="button"
+                    className="btn btn-danger px-3"
+                    onClick={handleLogout}
+                    disabled={loading}
+                  >
+                    {loading ? "Logging out..." : "Logout"}
+                  </button>
+
+                </>
+              )}
+
+
+            </div>
 
           </div>
 
         </div>
 
-      </div>
+      </nav>
 
-    </nav>
 
-   
       {/* <div>
         
       {isAuthenticated && (
@@ -281,7 +327,7 @@ const Navbar = () => {
 
       </div> */}
 
-    
+
 
     </>
   );
