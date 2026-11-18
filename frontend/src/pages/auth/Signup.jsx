@@ -32,37 +32,87 @@ function Signup() {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
 
-    dispatch(signupRequestStart());
+//     dispatch(signupRequestStart());
 
-    try {
-        const res = await signupAPI(formData);
+//     try {
+//         const res = await signupAPI(formData);
 
-        if (!res || res.error) {
-            dispatch(signupRequestFail(res.message || "Signup failed"));
-            alert("error message = " + (res.message || "Signup failed"));
-            return;
-          }
+//         if (!res || res.error) {
+//             dispatch(signupRequestFail(res.message || "Signup failed"));
+//             alert("error message = " + (res.message || "Signup failed"));
+//             return;
+//           }
     
-          dispatch(signupRequestSuccess(res));
-          alert(res.message || "Signup successful");
-          console.log("in signup component response.message = " , res.message);
-          console.log("in signup component full response  = " , res);
+//           dispatch(signupRequestSuccess(res));
+//           alert(res.message || "Signup successful");
+//           console.log("in signup component response.message = " , res.message);
+//           console.log("in signup component full response  = " , res);
 
-          setFormData({name: "", email: "", password: ""});
+//           setFormData({name: "", email: "", password: ""});
 
-            // Navigate to login page after successful signup
-            navigate("/login");
+//             // Navigate to login page after successful signup
+//             navigate("/login");
         
-    } catch (error) {
-        const errorMessage = error.message || "Something went wrong during signup";
-        dispatch(signupRequestFail(errorMessage));
-        alert(errorMessage);   
+//     } catch (error) {
+//         const errorMessage = error.message || "Something went wrong during signup";
+//         dispatch(signupRequestFail(errorMessage));
+//         alert(errorMessage);   
+//     }
+
+// }  
+
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Check all fields before API call
+  if (
+    !formData.name.trim() ||
+    !formData.email.trim() ||
+    !formData.password.trim()
+  ) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  dispatch(signupRequestStart());
+
+  try {
+    const res = await signupAPI(formData);
+
+    if (!res || res.error) {
+      dispatch(signupRequestFail(res?.message || "Signup failed"));
+      alert("error message = " + (res?.message || "Signup failed"));
+      return;
     }
 
-}  
+    dispatch(signupRequestSuccess(res));
+
+    alert(res.message || "Signup successful");
+
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
+
+    // Navigate only after successful signup
+    navigate("/login");
+
+  } catch (error) {
+    const errorMessage =
+      error.message || "Something went wrong during signup";
+
+    dispatch(signupRequestFail(errorMessage));
+    alert(errorMessage);
+  }
+};
+
+
 
   return (
     <>

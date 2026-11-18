@@ -3,6 +3,8 @@ import Navbar from './Navbar'
 import { Outlet } from 'react-router-dom'
 import LanguageLayout from './LanguageLayout'
 import { useSelector } from 'react-redux'
+import Footer from './Footer'
+
 
 const Layout = () => {  
 
@@ -22,7 +24,7 @@ const Layout = () => {
 
           <Outlet />
 
-        
+          <Footer />
     
     </>
   )
