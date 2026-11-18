@@ -31,7 +31,7 @@ const authSlice = createSlice({
         },
 
         checkAuthRequest: {
-            loading: false,
+            loading: true,
             success: false,
             error: null,
             message: "",
@@ -132,35 +132,54 @@ const authSlice = createSlice({
             state.checkAuthRequest.success = false;
             state.checkAuthRequest.error = null;
             state.checkAuthRequest.message = "";
+
+            state.isAuthenticated = false;
+
         },
 
-        checkAuthRequestSuccess: (state, action) => {
+        // checkAuthRequestSuccess: (state, action) => {
                 
-                state.checkAuthRequest.loading = false;
-                state.checkAuthRequest.success = true;
-                state.checkAuthRequest.error = null;
+        //         state.checkAuthRequest.loading = false;
+        //         state.checkAuthRequest.success = true;
+        //         state.checkAuthRequest.error = null;
                 
-                state.checkAuthRequest.message = action.payload.message;
+        //         state.checkAuthRequest.message = action.payload.message;
     
-                // Set user and token on successful auth check
-                state.user = action.payload.user;
-                state.isAuthenticated = true;
-
-                console.log("Auth check successful:", state.user);
-            },
-
-        checkAuthRequestFail: (state, action) => {
+        //         // Set user and token on successful auth check
+        //         state.user = action.payload.user;
+        //         console.log("action.payload : ", action.payload);
+        //         console.log("Auth check successful:", state.user);
+        //         console.log("action.payload.user :", action.payload.user);
                 
+                
+        //         state.isAuthenticated = true;
+                
+
+
+
+
+        //     },
+
+            
+        checkAuthRequestSuccess: (state, action) => {
+            state.checkAuthRequest.loading = false;
+            state.checkAuthRequest.success = true;
+            state.checkAuthRequest.error = null;
+        
+            state.user = action.payload.user;
+            state.isAuthenticated = true;
+        },
+        
+        checkAuthRequestFail: (state, action) => {
                 state.checkAuthRequest.loading = false;
                 state.checkAuthRequest.success = false;
-                state.checkAuthRequest.error = action.payload.error;
-                state.checkAuthRequest.message = action.payload.message;
-    
-                // Clear user and token on failed auth check
+                state.checkAuthRequest.error = true;
+                state.checkAuthRequest.message = action.payload?.message;
+            
                 state.user = null;
                 state.token = null;
                 state.isAuthenticated = false;
-            }
+            },
 
         
 

@@ -2,13 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 
-import {
-  logoutRequestStart,
-  logoutRequestSuccess,
-  logoutRequestFail
-} from "../redux/auth/authSlice";
-
-import { logoutAPI } from "../Services/authFunctions";
+import Logout from '../pages/auth/Logout';
 
 import { getMeAPI } from '../Services/authFunctions'
 
@@ -62,38 +56,7 @@ const Navbar = () => {
     }
   }
 
-  // const isLoading = checkAuthRequest.loading;
-
-  const handleLogout = async () => {
-
-    if (!window.confirm("Are you sure you want to logout")) return;
-
-    try {
-
-      dispatch(logoutRequestStart());
-
-      const res = await logoutAPI();
-
-      console.log("logout response = ", res);
-
-      if (!res || res.error) {
-        dispatch(logoutRequestFail(res));
-        alert("inside !res error =" + res.message || "Logout failed");
-        return;
-      }
-
-      dispatch(logoutRequestSuccess(res));
-      alert("inside logout = " + res.message);
-
-      navigate("/");
-
-    } catch (error) {
-      dispatch(logoutRequestFail(error.message));
-      alert(" inside catch =" + error.message || "Logout failed");
-
-    }
-
-  }
+ 
 
 
 
@@ -295,16 +258,7 @@ const Navbar = () => {
                     Profile
                   </NavLink>
 
-
-                  <button
-                    type="button"
-                    className="btn btn-danger px-3"
-                    onClick={handleLogout}
-                    disabled={loading}
-                  >
-                    {loading ? "Logging out..." : "Logout"}
-                  </button>
-
+                  <Logout />
                 </>
               )}
 

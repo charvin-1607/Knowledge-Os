@@ -54,7 +54,11 @@ function Login() {
 
         // Navigate on website
 
-        navigate('/');
+        if (response.user.role === "admin") {
+          navigate("/admin/dashboard");
+      } else {
+          navigate("/");
+      }
 
       // Optional: clear form after successful login
       setFormData({

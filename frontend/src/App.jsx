@@ -19,11 +19,11 @@ function App() {
 
 
     useEffect(() => {
-      if(isAuthenticated){
         checkAuthentication();
-      }
     }, []);
 
+
+    console.log("isAuthenticated in App.jsx:", isAuthenticated);
 
     const checkAuthentication = async () => {
 
@@ -33,12 +33,18 @@ function App() {
 
             const res = await getMeAPI();
 
-            if (!res || res.error) {
-                dispatch(checkAuthRequestFail(res.message || "Authentication check failed"));
+            if (!res || !res.success) {
+                dispatch(
+                    checkAuthRequestFail({
+                        message: res?.message || "Authentication failed"
+                    })
+                );
                 return;
             }
-
+            
             dispatch(checkAuthRequestSuccess(res));
+            
+            console.log("res in app.jsx:", res);
 
         } catch (error) {
             dispatch(checkAuthRequestFail(error.message || "Something went wrong during authentication check"));

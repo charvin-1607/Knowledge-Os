@@ -1,23 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-//get all users
 
-async function getAllUsers(req, res) {
-    try {
-        const users = await User.find();
-        res.status(200).json({
-            success: true,
-            message: "Users fetched successfully",
-            users: users
-        });
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message
-        });
-    }
-}
 
 
 // get user by id
@@ -114,7 +98,7 @@ async function deleteUserById(req, res) {
 async function getMe(req, res) {
 
     try {
-        const user = await User.findById(req.user.id);
+        const user = await User.findById(req.user.id).select("-password");
 
         if (!user) {
             return res.status(404).json({
@@ -201,7 +185,6 @@ async function updatePassword(req, res) {
 }
 
 module.exports = {
-    getAllUsers,
     getUserById,
     updateUserById,
     deleteUserById,

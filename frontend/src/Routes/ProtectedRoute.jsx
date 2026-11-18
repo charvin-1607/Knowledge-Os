@@ -1,9 +1,9 @@
-import React, { use } from "react";
+
+import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ children, role }) => {
 
     const {
         isAuthenticated,
@@ -11,24 +11,22 @@ const ProtectedRoute = ({ children }) => {
         user
     } = useSelector((state) => state.auth);
 
-
-    // ✅ STEP 1: WAIT first
-    if (!isAuthenticated) {
-        return <h3>Checking authentication...please login </h3>;
+    // Wait until authentication check completes
+    if (checkAuthRequest.loading) {
+        return <h3>Checking authentication...</h3>;
     }
 
-    // ✅ STEP 2: now check login
-    if (!user) {
-        return <Navigate to="/login" />;
+    // User is not logged in
+    if (!isAuthenticated || !user) {
+        return <Navigate to="/login" replace />;
     }
 
+    // Role authorization
+    if (role && user.role !== role) {
+        return <Navigate to="/" replace />;
+    }
 
-
-
-    //  Allowed
     return children;
-
 };
-
 
 export default ProtectedRoute;
