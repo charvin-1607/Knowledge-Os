@@ -92,7 +92,7 @@ const AdminSidebar = () => {
 
                     <div className="border-top border-white pt-3 mt-2">
 
-                        <div className="text-uppercase text-info small fw-bold mb-3">
+                        <div className="text-uppercase text-info     small fw-bold mb-3">
                             <i className="bi bi-palette me-2"></i>
                             Appearance
                         </div>

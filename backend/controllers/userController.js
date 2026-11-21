@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Note = require("../models/Note");
 const bcrypt = require("bcryptjs");
 
 
@@ -63,10 +64,11 @@ async function updateUserById(req, res) {
 
 // delete user by id
 
-async function deleteUserById(req, res) {
+// Delete user and all associated notes
 
+async function deleteUserById(req, res) {
     try {
-        const user = await User.findByIdAndDelete(req.params.id);
+        const user = await User.findById(req.params.id);
 
         if (!user) {
             return res.status(404).json({
@@ -75,21 +77,26 @@ async function deleteUserById(req, res) {
             });
         }
 
-        res.status(200).json({
+        // Delete all notes created by this user
+        await Note.deleteMany({ userId: user._id });
+
+        // Delete user account
+        await User.findByIdAndDelete(user._id);
+
+        return res.status(200).json({
             success: true,
-            message: "User deleted successfully",
+            message: "User and all associated notes deleted successfully",
             user: user
         });
 
     } catch (error) {
-
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: error.message
         });
     }
-
 }
+
 
 
 
